@@ -1,0 +1,8 @@
+fastapi>=0.68.0
+uvicorn>=0.15.0
+gradio>=3.0.0
+newspaper3k>=0.2.8
+transformers>=4.26.0
+yake>=0.4.8
+gnews>=0.2.7
+soundfile>=0.12.1
