@@ -1,86 +1,103 @@
-# News Summarization and Text-to-Speech Application
+# News Summarization & Text-to-Speech Application
 
-[![Python 3.9](https://img.shields.io/badge/Python-3.9-blue.svg)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Deployed on Hugging Face](https://img.shields.io/badge/Deployed%20on-Hugging%20Face%20Spaces-blue)](https://huggingface.co/spaces)
+A Python web application that collects company-related news, summarizes articles, performs sentiment analysis, compares article signals, and generates a Hindi text-to-speech report.
 
-A web application that extracts news articles for a given company, performs summarization, sentiment analysis, and generates a Hindi text-to-speech (TTS) report. Built with **FastAPI**, **Gradio**, and Hugging Face models.
+## Overview
 
----
+```text
+Company name
+     ↓
+ GNews API
+     ↓
+News articles
+  ↙     ↓      ↘
+Summary Sentiment Topics
+  \      |      /
+   Comparative analysis
+          ↓
+     Hindi TTS report
+```
 
-## 🚀 Features
-- **News Extraction**: Fetches 10+ news articles using the GNews API.
-- **Summarization**: Generates concise summaries using `facebook/bart-large-cnn`.
-- **Sentiment Analysis**: Classifies articles as Positive/Negative/Neutral with `distilbert-base-uncased`.
-- **Comparative Analysis**: Compares sentiment distribution and topic overlap across articles.
-- **Hindi TTS**: Converts the final report to Hindi speech using `facebook/mms-tts-hin`.
-- **Deployment**: Ready for deployment on Hugging Face Spaces via Docker.
+## Features
 
----
+- **News extraction:** Fetches company-related articles through the GNews API
+- **Summarization:** Uses `facebook/bart-large-cnn` for concise summaries
+- **Sentiment analysis:** Classifies articles as Positive, Negative, or Neutral
+- **Comparative analysis:** Compares sentiment distribution and topic overlap
+- **Hindi TTS:** Generates a Hindi spoken report using `facebook/mms-tts-hin`
+- **Web interface:** Gradio frontend backed by a FastAPI service
+- **Deployment:** Docker-based deployment support for Hugging Face Spaces
 
-## 📦 Installation
+## Technology Stack
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/your-username/news-summarizer-tts.git
-   cd news-summarizer-tts# News-Summarization-and-Text-to-Speech-Application
-
-## Install dependencies:
-   pip install -r requirements.txt
-   
-   ## Run Locally
-   1. Start the FastAPI backend:
-      uvicorn api:app --reload
-      The API will run at http://localhost:8000.
-    2.Start the Gradio frontend:
-      python app.py
-      Access the UI at http://localhost:7860
-    3. Input a company name (e.g., "Tesla") and click Submit to:
-       -> Fetch news articles.
-       -> View summaries, sentiment scores, and topics.
-       -> Play the Hindi TTS report.
-
-## Deployment on Hugging Face Spaces
-   Create a new Space on Hugging Face with Docker SDK.
-
-   Upload all project files (including Dockerfile and requirements.txt).
-
-   Build and deploy:
-
-   Hugging Face automatically builds the Docker image using the provided Dockerfile.
-
-   The app will be accessible at https://huggingface.co/spaces/{your-username}/{space-name}.
+- **Language:** Python 3.9+
+- **API:** FastAPI
+- **UI:** Gradio
+- **NLP:** Hugging Face Transformers
+- **Models:** BART, DistilBERT, MMS TTS
+- **Data/ML:** Python data-processing workflow
+- **Deployment:** Docker / Hugging Face Spaces
 
 ## Project Structure
-   ├── app.py               # Gradio frontend
-   ├── api.py               # FastAPI backend routes
-   ├── utils.py             # Helper functions (scraping, models)
-   ├── requirements.txt     # Dependencies (FastAPI, Gradio, transformers)
-   ├── Dockerfile           # Deployment configuration
-   └── README.md
 
-## API Documentation
-   Endpoint: /analyze
-   Method: POST
+```text
+├── app.py               # Gradio frontend
+├── api.py               # FastAPI routes
+├── utils.py             # Data fetching and model helpers
+├── requirements.txt     # Python dependencies
+├── Dockerfile           # Container configuration
+└── README.md
+```
 
-  Input:
-  { "company_name": "BMW" }
+## Run Locally
 
-  Output:
-  {
-    "company": "BMW",
-    "articles": [{"title": "...", "summary": "...", "sentiment": "Positive", "topics": [...]}],
-    "comparative_analysis": {"Positive": 6, "Negative": 2, "Neutral": 2},
-    "audio_url": "output.mp3"
-  }
+```bash
+git clone https://github.com/Harsh24-j/News-Summarization-and-Text-to-Speech-Application.git
+cd News-Summarization-and-Text-to-Speech-Application
+pip install -r requirements.txt
+```
 
-## Assumptions & Limitations
+Start the backend:
 
-   News Source: Relies on GNews API (English articles only; free tier has rate limits).
+```bash
+uvicorn api:app --reload
+```
 
-   Language: TTS output is in Hindi; translation quality depends on Helsinki-NLP/opus-mt-en-hi.
+Start the frontend in another terminal:
 
-   Edge Cases: Limited error handling for invalid URLs or missing articles.
+```bash
+python app.py
+```
+
+- API: `http://localhost:8000`
+- Gradio UI: `http://localhost:7860`
+
+## API
+
+### `POST /analyze`
+
+Example request:
+
+```json
+{
+  "company_name": "BMW"
+}
+```
+
+The service returns article summaries, sentiment information, comparative analysis, and an audio output reference.
+
+## Limitations
+
+- News availability depends on the GNews API and its rate limits.
+- Source articles are English-language inputs in the documented workflow.
+- Hindi TTS quality depends on the underlying translation/TTS models.
+- Real-world article availability and model output can vary by run.
 
 ## License
-   This project is licensed under the MIT License. See LICENSE for details.
+
+MIT License. See `LICENSE` for details.
+
+## Author
+
+**Harsh Shrivastava**  
+[GitHub](https://github.com/Harsh24-j) · [LinkedIn](https://linkedin.com/in/harshshrivastava24)
